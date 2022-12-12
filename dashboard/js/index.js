@@ -1,10 +1,15 @@
-import { renderViewStaff } from "./controller/staffController.js";
-import { Test } from "./modal/test.js";
+import {
+    addDataTarget,
+    changePage,
+    createModalForEachStaff,
+    exportDataStaff,
+    renderListPage,
+    renderViewStaff,
+} from "./controller/staffController.js";
+import { staffData } from "./Data/StaffData.js";
+// import { Staff } from "./model/StaffModel.js";
 
-const TEST = [];
 const TASK = [];
-let newTest = new Test("New content", "./image/nhung-manh-doi-bat-hanh.png");
-TEST.push(newTest);
 
 var navLinks = document.querySelectorAll(".navlink");
 var navContent = document.querySelectorAll(".nav-content");
@@ -37,8 +42,6 @@ function openNav(el) {
 
     btn.classList.add("active");
 }
-
-renderViewStaff(TEST);
 
 // calendar
 let calendar;
@@ -85,3 +88,21 @@ let addTask = () => {
 window.addTask = addTask;
 
 // ádadads
+
+// renderViewStaff(TEST);
+
+export const STAFF = exportDataStaff(staffData);
+console.log("STAFF: ", STAFF);
+renderViewStaff(STAFF);
+
+export const list = document.getElementsByClassName("modal-btn");
+
+addDataTarget(list, STAFF);
+
+createModalForEachStaff(STAFF);
+export const totalPages = Math.ceil(STAFF.length / 12);
+console.log("totalPages: ", totalPages);
+
+renderListPage(totalPages);
+
+changePage();

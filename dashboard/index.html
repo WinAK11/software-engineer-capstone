@@ -20,6 +20,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,700;0,800;0,900;1,100&family=Poppins:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
+
     <!-- calendar -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css">
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
@@ -65,12 +66,12 @@
                     <h3>Message</h3>
                     <span class="message-count">0</span>
                 </button>
-                <button class="navlink " data-content="annoucement  ">
+                <!-- <button class="navlink " data-content="annoucement  ">
                     <span class="material-symbols-sharp">
                         notifications
                     </span>
                     <h3>Annoucement</h3>
-                </button>
+                </button> -->
                 <button class="navlink " data-content="task ">
                     <span class="material-symbols-sharp">
                         add_task
@@ -158,15 +159,35 @@
             </div>
             <div id="MCPs" class="nav-content">
 
-                <h3>View MCPs</h3>
+                <!--The div element for the map -->
+
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d15672.330092879356!2d106.80605034999999!3d10.881327899999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1svi!2s!4v1670416661640!5m2!1svi!2s"
+                    width="100%" height="600" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+
             </div>
             <div id="vehicles" class="nav-content">
 
                 <h3>View Vehicles</h3>
             </div>
-            <div id="staff" class="nav-content">
-                <div id="staff-content"></div>
-                <h3>View Staff</h3>
+            <div id="staff" class="nav-content ">
+                <div class="m-1 container row mx-auto" id="staff-content"></div>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item ">
+                            <a id="btn-prev" class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                        </li>
+                        <div id="list-page" class="d-flex"></div>
+                        <!-- <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+                        <li class="page-item">
+                            <a id="btn-next" class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
 
 
@@ -215,6 +236,11 @@
             </div>
         </div>
     </div>
+
+    <!-- staff modal -->
+    <div id="staff-modal"></div>
+
+
 
 
     <!-- calendar -->
