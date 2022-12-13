@@ -6,6 +6,12 @@ import {
     renderListPage,
     renderViewStaff,
 } from "./controller/staffController.js";
+import {
+    createModalForTask,
+    getTaskInfo,
+    renderTaskTable,
+    showTaskInfo,
+} from "./controller/taskController.js";
 import { staffData } from "./Data/StaffData.js";
 // import { Staff } from "./model/StaffModel.js";
 
@@ -59,40 +65,54 @@ function initCalendar() {
         },
         events: [],
     });
-
     calendar.render();
 }
 
 // test
 
-let addTask = () => {
-    let taskTitle = document.getElementById("taskTitle").value;
-    let staffInput = document.getElementById("staffInput").value;
-    let date = document.getElementById("exampleDate").value;
-    let content = "";
-    TASK.push({ taskTitle, staffInput, date });
-    console.log("TASK: ", TASK);
-    TASK.forEach((task) => {
-        return (content += `
-                <tr>
-                    <td>${task.taskTitle}</td>
-                    <td>${task.staffInput}</td>
-                    <td>${task.date}</td>
-                </tr>
-             `);
-    });
+createModalForTask("add");
 
-    calendar.addEvent({ title: taskTitle, start: date });
-    document.getElementById("tableBody").innerHTML = content;
+let addTask = () => {
+    let newTask = getTaskInfo();
+
+    TASK.push(newTask);
+    renderTaskTable(TASK);
+
+    calendar.addEvent({
+        title: newTask.title,
+        start: newTask.startDate,
+        end: newTask.endDate,
+    });
+    document.getElementById("task-form").reset();
 };
 window.addTask = addTask;
 
-// ádadads
+let deleteTask = (index) => {
+    TASK.splice(index, 1);
+    renderTaskTable(TASK);
+};
+let changeTask = (index) => {
+    createModalForTask("change");
+    showTaskInfo(TASK[index]);
+    document.getElementById("taskID").disabled = true;
+};
+let saveChanges = () => {
+    let editedTask = getTaskInfo();
+    let index = TASK.findIndex(function (task) {
+        return task.id == editedTask.id;
+    });
 
-// renderViewStaff(TEST);
+    TASK[index] = editedTask;
+    renderTaskTable(TASK);
+    document.getElementById("taskID").disabled = false;
+    createModalForTask("add");
+};
+window.saveChanges = saveChanges;
+
+window.deleteTask = deleteTask;
+window.changeTask = changeTask;
 
 export const STAFF = exportDataStaff(staffData);
-console.log("STAFF: ", STAFF);
 renderViewStaff(STAFF);
 
 export const list = document.getElementsByClassName("modal-btn");
