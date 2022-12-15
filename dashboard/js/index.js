@@ -12,7 +12,12 @@ import {
     renderTaskTable,
     showTaskInfo,
 } from "./controller/taskController.js";
+import {
+    exportDataVehicle,
+    renderViewVehicle,
+} from "./controller/vehicleController.js";
 import { staffData } from "./Data/StaffData.js";
+import { vehicleData } from "./Data/VehicleData.js";
 // import { Staff } from "./model/StaffModel.js";
 
 const TASK = [];
@@ -31,6 +36,30 @@ function showNotify() {
     }
 }
 window.showNotify = showNotify;
+
+// menu
+const allMenu = document.querySelectorAll("main .content-data .head .menu");
+allMenu.forEach((item) => {
+    const icon = item.querySelector(".icon");
+    const menuLink = item.querySelector(".menu-link");
+    icon.addEventListener("click", function () {
+        menuLink.classList.toggle("show");
+    });
+});
+
+window.addEventListener("click", function (e) {
+    allMenu.forEach((item) => {
+        const icon = item.querySelector(".icon");
+        const menuLink = item.querySelector(".menu-link");
+        if (e.target !== icon) {
+            if (e.target !== menuLink) {
+                if (menuLink.classList.contains("show")) {
+                    menuLink.classList.remove("show");
+                }
+            }
+        }
+    });
+});
 
 // navlink
 function openNav(el) {
@@ -113,7 +142,9 @@ window.deleteTask = deleteTask;
 window.changeTask = changeTask;
 
 export const STAFF = exportDataStaff(staffData);
+export const VEHICLE = exportDataVehicle(vehicleData);
 renderViewStaff(STAFF);
+renderViewVehicle(VEHICLE);
 
 export const list = document.getElementsByClassName("modal-btn");
 
